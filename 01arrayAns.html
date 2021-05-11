@@ -1,0 +1,170 @@
+<html>
+  <head>
+  </head>
+  <body>
+     <script>
+       // 1.数组扁平化
+        //1.1递归
+       var arr=[1,2,[3,4,[5,6]],7,8];
+       function flatArr (arr){
+         const res =[];
+         for(let i=0;i<arr.length;i++){
+           if(Array.isArray(arr[i])){
+            res.push(...flatArr(arr[i]));
+           }else{
+             res.push(arr[i]);
+           }
+         }
+         return res;
+       }
+       flatArr(arr);
+        //1.2正则 将结果值都转换为数组类型
+        JSON.stringify(arr).replace(/\[|\]/g,'').split(',');
+        //1.3优化正则
+        JSON.parse('['+JSON.stringify(arr).replace(/\[|\]/g,'')+']');
+        //1.4使用flat()
+        arr.flat(Infinity);
+        // 1.5 使用reduce
+        const flatten = arr => {
+          return arr.reduce((pre,cur)=>{
+            return pre.concat(Array.isArray(cur) ? flatten(cur) : cur);
+          },[])
+        }
+        flatten(arr);
+
+       // 2.数组去重
+       // 利用对象map
+       var arr =[1,2,2, ,4,5, , ,7,2];
+       const unRepeat= arr => {
+          var obj = {};
+          var res=[];
+          for(let j=0;j<arr.length;j++){
+            const item = arr[j];
+            if(!obj[item]){
+              obj[item] = 1; // 此处，如果obj[item]为undefined，会去重失败
+              res.push(item);
+            }
+          }
+          return res;
+       }
+       unRepeat(arr);
+       // 利用indexOf
+       var arr =[1,2,2, ,4,5, , ,7,2];
+       const unique = arr => {
+         const res=[];
+         for(let i=0;i<arr.length;i++){
+           if(res.indexOf(arr[i]) === -1){
+             res.push(arr[i]);
+           }
+         }
+         return res;
+       }
+       unique(arr);
+
+       // 数组去重
+       function unique(arr){
+          const obj ={};
+          const res=[];
+          for(let i=0;i<arr.length;i++){
+            const item = arr[i];
+            if(!obj[item]){
+              obj[item] = 1;
+              res.push(item);
+            }
+          }
+          return res;
+       }
+       unique(arr);
+
+       // 利用栈的思路进行数组去重
+       const unique2 = arr => {
+          const stack = [];
+          const res=[];
+          stack.push(arr);
+          while(stack.length){
+            const item = stack.pop();
+            if(res.indexOf(...item) === -1){
+              res.push(item);
+            }
+          }
+          return res;
+       }
+
+       const arr = [1,2,3,[4,5,[6,7]],9];
+       // 数组扁平化
+       // 1.正则
+       JSON.stringify(arr).replace(/\[|\]/g).split(',')
+       // 2.正则优化
+       JSON.parse('['+Jstringify(arr).replace(/\[|\]/g)+']')
+       // 3.递归
+       function flatten(arr){
+         const res=[];
+          for(let j =0; j<arr.length;j++){
+            if(Array.isArray(arr[j])){
+              res.push(...flatten(arr[j]));
+            }else{
+              res.push(arr[j]);
+            }
+          }
+          return res;
+       }
+       // 4.flat
+       // 5.reduce
+    
+
+       const arr= [1,2,4,5,6,7,8];
+       const sum = 6;
+       function findSum(arr){
+         let res=[];
+         let i=0;
+         let j=1;
+
+         for(i=0;i<arr.length;i++){
+           for(let j=1;j<arr.length;j++){
+             if((arr[i]+arr[j])=== 6);
+               break;
+           }
+         }
+         return ;
+       }
+
+       findSum(arr,sum);
+
+    /**
+    *输出数组中两数和等于期望值的索引值
+    */
+    var arr=[1,2,3,4,5];
+    var sum = 6;
+
+    function getSum(arr,sum){
+    for(var i = 0; i < arr.length ; i++){
+        for(var j=i+1; j <arr.length; j++){
+            if(arr[i] + arr[j] == sum){
+                return [i, j]
+                }
+            }
+        }
+    }
+    getSum(arr,sum);
+    // 使用栈的思路进行数组扁平化
+    const arr =[1,[2,2], ,[4,[1,2],5], , ,7,2];
+    const flatten = (arr)=>{
+      const stack=[];
+      const res=[];
+      stack.push(arr);
+      while(stack.length){
+        const item = stack.pop();
+        if(Array.isArray(item)){
+          stack.push(...item);
+        }else{
+          res.push(item);
+        }
+      }
+      return res.reverse();
+    }
+    flatten(arr);
+    
+
+     </script>
+  </body>
+</html>
